@@ -6,8 +6,14 @@ using System.Windows.Forms;
 
 namespace PlayListGenerator
 {
+
+   
     static class Program
     {
+
+        public static string strError;
+        public static bool isErrorr = false;
+
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
