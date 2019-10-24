@@ -8,24 +8,36 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
+using Schedule;
+using FolderManager;
+
 
 namespace PlayListGenerator
 {
 
-
     public partial class Form1 : Form
     {
         TimeSchedule timeSchedule;
+        FileManager fileManager;
 
         public Form1()
         {
             InitializeComponent();
-            
+            fileManager = new FileManager();
+
+            backgroundWorker1.DoWork += (sender,_event) => fileManager.Syncronize();
+            backgroundWorker1.RunWorkerAsync();
+            backgroundWorker1.RunWorkerCompleted += (sender, _events) => { label2.Text = fileManager.str; };
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public static void WriteExeption (string exeption)
+        {
+            MessageBox.Show(exeption, "ERROR",MessageBoxButtons.OK ,MessageBoxIcon.Error);
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -81,97 +93,7 @@ namespace PlayListGenerator
            // label1.Text = ts;
         }
 
-       
     }
 
-    public class TimeSchedule
-    {
-        public List<Time> workTimeMorning;
-        public List<Time> workTimeDay;
-
-        List<List<int>> listVideosMorning;
-        List<List<int>> listVideosDay;
-        const bool hasSheduleMorning = true;
-
-        public TimeSchedule(string[,] str)
-        {
-            workTimeMorning = new List<Time>();
-            workTimeDay = new List<Time>();
-            listVideosMorning = new List<List<int>>();
-            listVideosDay = new List<List<int>>();
-
-            bool isFillMorning = false;
-
-            for (int i = 0; i < str.GetLength(0); i++)
-            {
-                List<int> row = new List<int>();
-
-                for (int j = 1; j < str.GetLength(1); j++)
-                {
-                    if (str[i, j] != null && str[i, j] != " " && str[i, j] != "-")
-                    {
-                        try
-                        {
-                            row.Add(int.Parse(str[i, j]));
-                        }
-                        catch (Exception e) { Program.isErrorr = true; Program.strError = e.ToString(); }
-                    }
-                }
-
-                if(row.Count > 0)
-                {
-                    if (!isFillMorning && hasSheduleMorning)
-                    {
-                        workTimeMorning.Add(new Time(str[i, 0]));
-                        listVideosMorning.Add(new List<int>(row));
-                    }
-                    else
-                    {
-                        workTimeDay.Add(new Time(str[i, 0]));
-                        listVideosDay.Add(new List<int>(row));
-                    }
-                }
-                else
-                {
-                    isFillMorning = true;
-                }
-            }
-        }
-    }
-
-    public class Time
-    {
-        public int beginHour;
-        public int beginMinut;
-        public int beginSecond;
-        public int endHour;
-        public int endMinut;
-        public int endSecond;
-
-        public Time(string strTime)
-        {
-            try
-            {
-                string[] strTimeSplit = strTime.Split('-');
-                string[] strTimeSplitBegin = strTimeSplit[0].Split(':');
-                string[] strTimeSplitEnd = strTimeSplit[1].Split(':');
-
-                beginHour = int.Parse(strTimeSplitBegin[0]);
-                beginMinut = int.Parse(strTimeSplitBegin[1]);
-                beginSecond = int.Parse(strTimeSplitBegin[2]);
-
-                endHour = int.Parse(strTimeSplitEnd[0]);
-                endMinut = int.Parse(strTimeSplitEnd[1]);
-                endSecond = int.Parse(strTimeSplitEnd[2]);
-            }
-            catch (Exception e) { Program.isErrorr = true; Program.strError = e.ToString();}
-        }
-
-        public override string ToString()
-        {
-            return beginHour + ":" + beginMinut + ":" + beginSecond + "-" + endHour + ":" + endMinut + ":" + endSecond;
-        }
-    }
-
-
+  
 }

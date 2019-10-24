@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace PlayListGenerator
 {
 
@@ -11,8 +12,6 @@ namespace PlayListGenerator
     static class Program
     {
 
-        public static string strError;
-        public static bool isErrorr = false;
 
         /// <summary>
         /// Главная точка входа для приложения.
@@ -23,6 +22,10 @@ namespace PlayListGenerator
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
+
+            
         }
+
+
     }
 }
