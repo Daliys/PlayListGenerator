@@ -17,8 +17,8 @@ namespace PlayListGenerator
 
     public partial class Form1 : Form
     {
-        TimeSchedule timeSchedule;
-        FileManager fileManager;
+        public static TimeSchedule timeSchedule;
+        public static FileManager fileManager;
 
         public Form1()
         {
@@ -93,6 +93,21 @@ namespace PlayListGenerator
            // label1.Text = ts;
         }
 
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+        
+        
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (!panelOne.Controls.Contains(UserControl1.instance))
+            {
+                panelOne.Controls.Add(UserControl1.instance);
+                UserControl1.instance.Dock = DockStyle.Fill;
+                UserControl1.instance.BringToFront();
+            }
+        }
     }
 
   
