@@ -56,6 +56,21 @@ namespace Schedule
                 }
             }
         }
+
+        public List<int> GetListVideoDay()
+        {
+            // хуйня переделать  
+            List<int> returnList = new List<int>();
+            for (int i = 0; i < listVideosDay.Count; i++)
+            {
+                for (int j = 0; j < listVideosDay[i].Count; j++)
+                {
+                    returnList.Add(listVideosDay[i][j]);
+                }
+            
+            }
+            return returnList;
+        }
     }
 
     public class Time
@@ -92,6 +107,18 @@ namespace Schedule
         }
     }
 
+    public class S
+    {
+        public S()
+        {
 
+        }
+
+        public static String GetNameByID(int id)
+        {
+            Random r = new Random();
+            return "pizdaric_"+id+"_" + r.Next(0,100);
+        }
+    }
 
 }

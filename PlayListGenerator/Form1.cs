@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 using Schedule;
 using FolderManager;
+using System.Xml;
 
 
 namespace PlayListGenerator
@@ -25,7 +26,7 @@ namespace PlayListGenerator
             InitializeComponent();
             fileManager = new FileManager();
 
-            backgroundWorker1.DoWork += (sender,_event) => fileManager.Syncronize();
+            //backgroundWorker1.DoWork += (sender,_event) => fileManager.Syncronize();
             backgroundWorker1.RunWorkerAsync();
             backgroundWorker1.RunWorkerCompleted += (sender, _events) => { label2.Text = fileManager.str; };
         }
@@ -50,7 +51,7 @@ namespace PlayListGenerator
 
         }
 
-        string path = @"C:\Users\User\Source\Repos\Daliys\PlayListGenerator\PlayListGenerator\Futuris.xlsx";
+        string path = @"D:\VS_PROJ\PlayListGenerator\PlayListGenerator\PlayListGenerator\Futuris.xlsx";
         private void button2_Click(object sender, EventArgs e)
         {
             Excel.Application xlApp = new Excel.Application();
@@ -107,6 +108,78 @@ namespace PlayListGenerator
                 UserControl1.instance.Dock = DockStyle.Fill;
                 UserControl1.instance.BringToFront();
             }
+        }
+
+        private void Button4_Click(object sender, EventArgs e)
+        {
+            XmlManager xml = new XmlManager();
+            // xml.AddVideo("pari");
+            // xml.AddVideo("ochag");
+            ////xml.AddVideo("sony");
+            ///  xml.AddVideo("logo");
+            xml.LoadSchedule();
+            xml.GenerateXml();
+        }
+    }
+
+    public class XmlManager
+    {
+        XmlWriter xmlFile;
+        List<String> listVideos;
+
+        public XmlManager()
+        {
+            xmlFile = XmlWriter.Create("TimedDate.xml");    
+            listVideos = new List<string>();
+        }
+
+        public void AddVideo(String str)
+        {
+            listVideos.Add(str);
+        }
+
+        public void LoadSchedule()
+        {
+            foreach (var item in Form1.timeSchedule.GetListVideoDay())
+            {
+                listVideos.Add(S.GetNameByID(item));
+            }
+            
+        }
+
+        public void GenerateXml()
+        {
+
+            xmlFile.WriteStartDocument();
+            xmlFile.WriteStartElement("TimmingPlayer");
+            xmlFile.WriteAttributeString("ListFilter", "0");
+
+            xmlFile.WriteStartElement("List");
+            xmlFile.WriteAttributeString("Name", "PIZDAAD");
+            xmlFile.WriteAttributeString("Active", "True");
+
+            xmlFile.WriteStartElement("Time");
+            xmlFile.WriteAttributeString("Style", "1");
+            xmlFile.WriteAttributeString("BeginTime", "22:00:00");
+            xmlFile.WriteAttributeString("EndTime", "23:59:59");
+            xmlFile.WriteAttributeString("Week", "1111111");
+
+            xmlFile.WriteEndElement();
+            xmlFile.WriteStartElement("Animation");
+            foreach (var item in listVideos)
+            {
+
+               
+                xmlFile.WriteStartElement("Item");
+                xmlFile.WriteAttributeString("Times", "1");
+                xmlFile.WriteString(@"..\RGB\" + item+".cel");
+                xmlFile.WriteEndElement();
+            }
+
+            // xmlFile.WriteEndElement();
+            xmlFile.WriteEndElement();
+            xmlFile.WriteEndDocument();
+            xmlFile.Close();
         }
     }
 
