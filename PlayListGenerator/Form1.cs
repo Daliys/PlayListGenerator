@@ -20,13 +20,15 @@ namespace PlayListGenerator
     {
         public static TimeSchedule timeSchedule;
         public static FileManager fileManager;
+        public static VideoPrefaber videoPrefaber;
 
         public Form1()
         {
             InitializeComponent();
             fileManager = new FileManager();
+            videoPrefaber = new VideoPrefaber();
 
-            //backgroundWorker1.DoWork += (sender,_event) => fileManager.Syncronize();
+            backgroundWorker1.DoWork += (sender,_event) => fileManager.Syncronize();
             backgroundWorker1.RunWorkerAsync();
             backgroundWorker1.RunWorkerCompleted += (sender, _events) => { label2.Text = fileManager.str; };
         }
@@ -51,8 +53,19 @@ namespace PlayListGenerator
 
         }
 
-        string path = @"D:\VS_PROJ\PlayListGenerator\PlayListGenerator\PlayListGenerator\Futuris.xlsx";
+        string path = @"C:\Users\User\Source\Repos\Daliys\PlayListGenerator\PlayListGenerator\Futuris.xlsx";
         private void button2_Click(object sender, EventArgs e)
+        {
+            backgroundWorker1.DoWork += (sender1, _1event) => { _1event = LoadExel(_1event); };
+
+            backgroundWorker1.WorkerReportsProgress = true;
+            backgroundWorker1.ProgressChanged += ((sender1, _event) => { progressBar1.Value = _event.ProgressPercentage; });
+            backgroundWorker1.RunWorkerAsync();
+            backgroundWorker1.RunWorkerCompleted += (sn, _e) => { label1.Text = _e.Result.ToString(); };
+        }
+
+
+        public DoWorkEventArgs LoadExel(DoWorkEventArgs e)
         {
             Excel.Application xlApp = new Excel.Application();
             Excel.Workbook xlWorkbook = xlApp.Workbooks.Open(path);
@@ -60,19 +73,19 @@ namespace PlayListGenerator
             Excel.Range xlRange = xlWorksheet.UsedRange;
 
             //label1.Text = "Row " + xlRange.Rows.Count + " Col " + xlRange.Columns.Count;
-            string[,] res = new string[40,61];
+            string[,] res = new string[40, 61];
             for (int i = 8, indexI = 0; i < 48; i++, indexI++)
             {
                 for (int j = 2, indexJ = 0; j < 63; j++, indexJ++)
                 {
                     if (xlRange.Cells[i, j] != null && xlRange.Cells[i, j].Value2 != null)
-                        res[indexI,indexJ] = xlRange.Cells[i, j].Value2.ToString();
-                    else res[indexI,indexJ] = " ";
+                        res[indexI, indexJ] = xlRange.Cells[i, j].Value2.ToString();
+                    else res[indexI, indexJ] = " ";
+
+                    backgroundWorker1.ReportProgress((100* (indexI * 61 + indexJ + 1)) /(40 * 61));
                 }
 
             }
-            label1.Text = "Finish";
-
             string ts = "";
             for (int i = 0; i < res.GetLength(0); i++)
             {
@@ -82,18 +95,20 @@ namespace PlayListGenerator
                 }
                 ts += "\n";
             }
-            label1.Text = ts;
+          
+           
             timeSchedule = new TimeSchedule(res);
-
-            ts = "";
-            foreach (var item in timeSchedule.workTimeMorning)
-            {
-                ts += item.ToString() + "\n";
-            }
-
-           // label1.Text = ts;
+            // ts = "";
+            // foreach (var item in timeSchedule.workTimeMorning)
+            // {
+            //    ts += item.ToString() + "\n";
+            // }
+             
+            e.Result = ts;
+            return e;
+            
+            // label1.Text = ts;
         }
-
         private void button1_Click_1(object sender, EventArgs e)
         {
         
@@ -142,7 +157,7 @@ namespace PlayListGenerator
         {
             foreach (var item in Form1.timeSchedule.GetListVideoDay())
             {
-                listVideos.Add(S.GetNameByID(item));
+                listVideos.Add(Form1.videoPrefaber.GetNameByID(item));
             }
             
         }

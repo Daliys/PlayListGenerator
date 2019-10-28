@@ -107,17 +107,36 @@ namespace Schedule
         }
     }
 
-    public class S
+    public class VideoPrefaber
     {
-        public S()
+        public struct structVideos
         {
+           public string videoName;
+            public int id;
+            public structVideos( int id, string videoName)
+            {
+                this.videoName = videoName;
+                this.id = id;
+            }
+        }
+        public List<structVideos> listPrefabs;
+        public VideoPrefaber()
+        {
+            listPrefabs = new List<structVideos>();
+            listPrefabs.Add(new structVideos(1, "pari_new_375"));
+            listPrefabs.Add(new structVideos(9, "X-fit20_09_375"));
+            listPrefabs.Add(new structVideos(10, "Futuris_reklama_158_40sec_1000"));
+            listPrefabs.Add(new structVideos(8, "Arenda20_09_375"));
+            listPrefabs.Add(new structVideos(3, "Karat_158_376"));
+ 
 
         }
 
-        public static String GetNameByID(int id)
+        public string GetNameByID(int id)
         {
-            Random r = new Random();
-            return "pizdaric_"+id+"_" + r.Next(0,100);
+            if (listPrefabs.Find((x) => x.id == id).videoName != null) return (listPrefabs.Find((x) => x.id == id)).videoName;
+            return "UNKNOWN";
+            
         }
     }
 
