@@ -53,7 +53,7 @@ namespace PlayListGenerator
 
         }
 
-        string path = @"C:\Users\User\Source\Repos\Daliys\PlayListGenerator\PlayListGenerator\Futuris.xlsx";
+        string path = @"C:\Users\User\Source\Repos\Daliys\PlayListGenerator\PlayListGenerator\Футурис 01.11-02.11.xlsx";
         private void button2_Click(object sender, EventArgs e)
         {
             backgroundWorker1.DoWork += (sender1, _1event) => { _1event = LoadExel(_1event); };
@@ -140,26 +140,47 @@ namespace PlayListGenerator
     public class XmlManager
     {
         XmlWriter xmlFile;
-        List<String> listVideos;
+        List<string> listVideos;
 
         public XmlManager()
         {
-            xmlFile = XmlWriter.Create("TimedDate.xml");    
+            xmlFile = XmlWriter.Create("TimedData.xml");    
             listVideos = new List<string>();
         }
 
-        public void AddVideo(String str)
+        private void AddVideo(String str)
         {
-            listVideos.Add(str);
+           // listVideos.Add(str);
         }
+
+        /* public void LoadSchedule()
+         {
+             int _i = 0;
+             for (int i = 0; i < Form1.timeSchedule.listVideosDay.Count; i++)
+             {
+                 if(i!=0 && !TimeSchedule.CompateSheduleLine(Form1.timeSchedule.listVideosDay[i], Form1.timeSchedule.listVideosDay[i - 1]))
+                 {
+                     listVideos.Add(new List<string>());
+                     foreach (var item in Form1.timeSchedule.listVideosDay[i-1])
+                     {
+                         listVideos[listVideos.Count-1].Add(Form1.videoPrefaber.GetNameByID(item));
+                     }
+                     _i = i; 
+                 }
+             }
+             foreach (var item in Form1.timeSchedule.listVideosDay[Form1.timeSchedule.listVideosDay.Count - 1])
+             {
+                 listVideos[listVideos.Count - 1].Add(Form1.videoPrefaber.GetNameByID(item));
+             }
+
+         }*/
 
         public void LoadSchedule()
         {
-            foreach (var item in Form1.timeSchedule.GetListVideoDay())
+             foreach (var item in Form1.timeSchedule.listVideosDay[Form1.timeSchedule.listVideosDay.Count-1])
             {
                 listVideos.Add(Form1.videoPrefaber.GetNameByID(item));
             }
-            
         }
 
         public void GenerateXml()
@@ -175,8 +196,8 @@ namespace PlayListGenerator
 
             xmlFile.WriteStartElement("Time");
             xmlFile.WriteAttributeString("Style", "1");
-            xmlFile.WriteAttributeString("BeginTime", "22:00:00");
-            xmlFile.WriteAttributeString("EndTime", "23:59:59");
+            xmlFile.WriteAttributeString("BeginTime", Form1.timeSchedule.workTimeDay[0].GetBeginTime());
+            xmlFile.WriteAttributeString("EndTime", Form1.timeSchedule.workTimeDay[Form1.timeSchedule.workTimeDay.Count - 1].GetEndTime());
             xmlFile.WriteAttributeString("Week", "1111111");
 
             xmlFile.WriteEndElement();

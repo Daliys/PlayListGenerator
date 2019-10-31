@@ -8,8 +8,8 @@ namespace Schedule
         public List<Time> workTimeMorning;
         public List<Time> workTimeDay;
 
-        List<List<int>> listVideosMorning;
-        List<List<int>> listVideosDay;
+        public List<List<int>> listVideosMorning;
+        public List<List<int>> listVideosDay;
         const bool hasSheduleMorning = true;
 
         public TimeSchedule(string[,] str)
@@ -55,6 +55,17 @@ namespace Schedule
                     isFillMorning = true;
                 }
             }
+        }
+
+        public static bool CompateSheduleLine(List<int> lineOne, List<int> lineTwo)
+        {
+            if (lineOne.Count != lineTwo.Count) return false;
+
+            for (int i = 0; i < lineOne.Count; i++)
+            {
+                if(lineOne[i] != lineTwo[i]) { return false; }
+            }
+            return true;
         }
 
         public List<int> GetListVideoDay()
@@ -105,6 +116,15 @@ namespace Schedule
         {
             return beginHour + ":" + beginMinut + ":" + beginSecond + "-" + endHour + ":" + endMinut + ":" + endSecond;
         }
+
+        public string GetBeginTime()
+        {
+            return beginHour + ":" + beginMinut + ":" + beginSecond;
+        }
+        public string GetEndTime()
+        {
+            return endHour + ":" + endMinut + ":" + endSecond;
+        }
     }
 
     public class VideoPrefaber
@@ -124,10 +144,30 @@ namespace Schedule
         {
             listPrefabs = new List<structVideos>();
             listPrefabs.Add(new structVideos(1, "pari_new_375"));
+            listPrefabs.Add(new structVideos(3, "Karat_158_376"));
+            listPrefabs.Add(new structVideos(6, "maunfild4_450"));
+            listPrefabs.Add(new structVideos(7, "olimpic2_500"));
+            listPrefabs.Add(new structVideos(8, "Arenda20_09_375"));
             listPrefabs.Add(new structVideos(9, "X-fit20_09_375"));
             listPrefabs.Add(new structVideos(10, "Futuris_reklama_158_40sec_1000"));
-            listPrefabs.Add(new structVideos(8, "Arenda20_09_375"));
-            listPrefabs.Add(new structVideos(3, "Karat_158_376"));
+            listPrefabs.Add(new structVideos(12, "ochag2_375"));
+            listPrefabs.Add(new structVideos(13, "Dom_mebel_158_375"));
+            listPrefabs.Add(new structVideos(16, "Minsk_626"));
+            listPrefabs.Add(new structVideos(18, "Lebiajiy_158_376"));
+            listPrefabs.Add(new structVideos(19, "evro_part158_375"));
+            listPrefabs.Add(new structVideos(20, "aeg_158(1)_375"));
+            listPrefabs.Add(new structVideos(23, "Mazeraty_158_375"));
+
+
+
+
+         
+           
+ 
+            
+     
+            //listPrefabs.Add(new structVideos(3, "Karat_158_376"));
+        ///S
  
 
         }
@@ -135,7 +175,7 @@ namespace Schedule
         public string GetNameByID(int id)
         {
             if (listPrefabs.Find((x) => x.id == id).videoName != null) return (listPrefabs.Find((x) => x.id == id)).videoName;
-            return "UNKNOWN";
+            return "Minsk_626";
             
         }
     }
