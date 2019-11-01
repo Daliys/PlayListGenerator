@@ -112,18 +112,18 @@ namespace Schedule
             catch (Exception e) { PlayListGenerator.Form1.WriteExeption(e.ToString()); }
         }
 
-        public override string ToString()
+        public string GetFullString()
         {
             return beginHour + ":" + beginMinut + ":" + beginSecond + "-" + endHour + ":" + endMinut + ":" + endSecond;
         }
 
         public string GetBeginTime()
         {
-            return beginHour + ":" + beginMinut + ":" + beginSecond;
+            return (string.Format("{0:d2}:{1:d2}:{2:d2}",beginHour, beginMinut,beginSecond));
         }
         public string GetEndTime()
         {
-            return endHour + ":" + endMinut + ":" + endSecond;
+           return (string.Format("{0:d2}:{1:d2}:{2:d2}", endHour, endMinut, endSecond));
         }
     }
 

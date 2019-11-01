@@ -128,10 +128,7 @@ namespace PlayListGenerator
         private void Button4_Click(object sender, EventArgs e)
         {
             XmlManager xml = new XmlManager();
-            // xml.AddVideo("pari");
-            // xml.AddVideo("ochag");
-            ////xml.AddVideo("sony");
-            ///  xml.AddVideo("logo");
+
             xml.LoadSchedule();
             xml.GenerateXml();
         }
@@ -140,82 +137,107 @@ namespace PlayListGenerator
     public class XmlManager
     {
         XmlWriter xmlFile;
-        List<string> listVideos;
+        List<ListXml> dayListSchedules;
+        List<ListXml> morningListSchedules;
 
         public XmlManager()
         {
-            xmlFile = XmlWriter.Create("TimedData.xml");    
-            listVideos = new List<string>();
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            xmlFile = XmlWriter.Create("TimedData.xml", settings);
+            dayListSchedules = new List<ListXml>();
+            morningListSchedules = new List<ListXml>();
         }
-
-        private void AddVideo(String str)
-        {
-           // listVideos.Add(str);
-        }
-
-        /* public void LoadSchedule()
-         {
-             int _i = 0;
-             for (int i = 0; i < Form1.timeSchedule.listVideosDay.Count; i++)
-             {
-                 if(i!=0 && !TimeSchedule.CompateSheduleLine(Form1.timeSchedule.listVideosDay[i], Form1.timeSchedule.listVideosDay[i - 1]))
-                 {
-                     listVideos.Add(new List<string>());
-                     foreach (var item in Form1.timeSchedule.listVideosDay[i-1])
-                     {
-                         listVideos[listVideos.Count-1].Add(Form1.videoPrefaber.GetNameByID(item));
-                     }
-                     _i = i; 
-                 }
-             }
-             foreach (var item in Form1.timeSchedule.listVideosDay[Form1.timeSchedule.listVideosDay.Count - 1])
-             {
-                 listVideos[listVideos.Count - 1].Add(Form1.videoPrefaber.GetNameByID(item));
-             }
-
-         }*/
-
+   
         public void LoadSchedule()
         {
-             foreach (var item in Form1.timeSchedule.listVideosDay[Form1.timeSchedule.listVideosDay.Count-1])
+            //Form1.timeSchedule.listVideosDay[Form1.timeSchedule.listVideosDay.Count - 1];
+            int trigger = 0;
+            int count = 0;
+            string date = string.Format("{0:d2}.{1:d2}",DateTime.Now.Day, DateTime.Now.Month);
+            for (int i = 0; i < Form1.timeSchedule.listVideosDay.Count; i++)
             {
-                listVideos.Add(Form1.videoPrefaber.GetNameByID(item));
+                if (i != 0 && !TimeSchedule.CompateSheduleLine(Form1.timeSchedule.listVideosDay[i - 1] , Form1.timeSchedule.listVideosDay[i]))
+                {
+                    dayListSchedules.Add(new ListXml("Day" + count+"_" + date, true, Form1.timeSchedule.workTimeDay[trigger].GetBeginTime().ToString(), Form1.timeSchedule.workTimeDay[i-1].GetEndTime().ToString(), "1111111"));
+                    dayListSchedules[dayListSchedules.Count - 1].AddVideos(Form1.timeSchedule.listVideosDay[i-1]);
+                    trigger = i;
+                    count++;
+
+                }
             }
+            dayListSchedules.Add(new ListXml("Day" + count+"_"+ date, true, Form1.timeSchedule.workTimeDay[trigger].GetBeginTime().ToString(), Form1.timeSchedule.workTimeDay[Form1.timeSchedule.workTimeDay.Count-1].GetEndTime().ToString(), "1111111"));
+            dayListSchedules[dayListSchedules.Count - 1].AddVideos(Form1.timeSchedule.listVideosDay[Form1.timeSchedule.listVideosDay.Count-1]);
         }
 
         public void GenerateXml()
         {
-
             xmlFile.WriteStartDocument();
             xmlFile.WriteStartElement("TimmingPlayer");
             xmlFile.WriteAttributeString("ListFilter", "0");
 
-            xmlFile.WriteStartElement("List");
-            xmlFile.WriteAttributeString("Name", "PIZDAAD");
-            xmlFile.WriteAttributeString("Active", "True");
+            
 
-            xmlFile.WriteStartElement("Time");
-            xmlFile.WriteAttributeString("Style", "1");
-            xmlFile.WriteAttributeString("BeginTime", Form1.timeSchedule.workTimeDay[0].GetBeginTime());
-            xmlFile.WriteAttributeString("EndTime", Form1.timeSchedule.workTimeDay[Form1.timeSchedule.workTimeDay.Count - 1].GetEndTime());
-            xmlFile.WriteAttributeString("Week", "1111111");
-
-            xmlFile.WriteEndElement();
-            xmlFile.WriteStartElement("Animation");
-            foreach (var item in listVideos)
+            foreach (var item in dayListSchedules)
             {
+                xmlFile.WriteStartElement("List");
+                xmlFile.WriteAttributeString("Name", item.name);
+                xmlFile.WriteAttributeString("Active", "True");
+                xmlFile.WriteStartElement("Time");
+                xmlFile.WriteAttributeString("Style", "1");
+                xmlFile.WriteAttributeString("BeginTime", item.beginTime);
+                xmlFile.WriteAttributeString("EndTime", item.endTime);
+                xmlFile.WriteAttributeString("Week", item.week);
 
-               
-                xmlFile.WriteStartElement("Item");
-                xmlFile.WriteAttributeString("Times", "1");
-                xmlFile.WriteString(@"..\RGB\" + item+".cel");
+                xmlFile.WriteEndElement();
+                xmlFile.WriteStartElement("Animation");
+                foreach (var videoItem in item.xmlListVideos)
+                {
+
+
+                    xmlFile.WriteStartElement("Item");
+                    xmlFile.WriteAttributeString("Times", "1");
+                    xmlFile.WriteString(@"..\RGB\" + videoItem + ".cel");
+                    xmlFile.WriteEndElement();
+
+                }
+                xmlFile.WriteEndElement();
                 xmlFile.WriteEndElement();
             }
 
             // xmlFile.WriteEndElement();
-            xmlFile.WriteEndElement();
+            //xmlFile.WriteEndElement();
             xmlFile.WriteEndDocument();
             xmlFile.Close();
+        }
+
+        class ListXml
+        {
+            public string name;
+            public bool isActive;
+            public List<string> xmlListVideos;
+            public string beginTime;
+            public string endTime;
+            public string week;
+
+            public ListXml(string name, bool isActive, string beginTime, string endTime, string week)
+            {
+                this.name = name;
+                this.isActive = isActive;
+                this.beginTime = beginTime;
+                this.endTime = endTime;
+                this.week = week;
+                xmlListVideos = new List<string>();
+            }
+
+            public void AddVideos(List<int> listVideos)
+            {
+                foreach (var item in listVideos )
+                {
+                    xmlListVideos.Add(Form1.videoPrefaber.GetNameByID(item));
+                }
+            }
+
         }
     }
 
