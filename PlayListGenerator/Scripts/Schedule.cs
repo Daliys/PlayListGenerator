@@ -10,7 +10,7 @@ namespace Schedule
 
         public List<List<int>> listVideosMorning;
         public List<List<int>> listVideosDay;
-        const bool hasSheduleMorning = true;
+        public bool hasSheduleMorning { get { return true; } }
 
         public TimeSchedule(string[,] str)
         {

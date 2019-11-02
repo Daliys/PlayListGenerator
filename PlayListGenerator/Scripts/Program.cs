@@ -8,11 +8,8 @@ using System.Windows.Forms;
 namespace PlayListGenerator
 {
 
-   
     static class Program
     {
-
-
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
