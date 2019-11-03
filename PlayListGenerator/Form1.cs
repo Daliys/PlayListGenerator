@@ -33,37 +33,26 @@ namespace PlayListGenerator
         public Form1()
         {
             InitializeComponent();
-            
+
             fileManager = new FileManager();
             videoPrefaber = new VideoPrefaber();
 
-            
-
-            AllowDrop = true;
-            this.DragDrop += new DragEventHandler(Form_DragDrop);
-            this.DragEnter += new DragEventHandler(Form_DragEnter);
-
             form1Instance = this;
+
+            FileLoader fl = FileLoader.instance;
+
         }
 
-        void Form_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
-        }
-        void Form_DragDrop(object sender, DragEventArgs e)
-        {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            foreach (string file in files) Console.WriteLine(file);
-        }
+       
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
 
-        public static void WriteExeption (string exeption)
+        public static void WriteExeption(string exeption)
         {
-            MessageBox.Show(exeption, "ERROR",MessageBoxButtons.OK ,MessageBoxIcon.Error);
+            MessageBox.Show(exeption, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -78,38 +67,63 @@ namespace PlayListGenerator
 
         private void button2_Click(object sender, EventArgs e)
         {
-          
+
         }
 
 
-        
+
         private void button1_Click_1(object sender, EventArgs e)
         {
-            if (!panelOne.Controls.Contains(FileLoader.instance))
+            if (!panelWorkArea.Controls.Contains(FileLoader.instance))
             {
-                panelOne.Controls.RemoveAt(0);
-                panelOne.Controls.Add(FileLoader.instance);
+                if (panelWorkArea.Controls.Count != 0)
+                    panelWorkArea.Controls.RemoveAt(0);
+                panelWorkArea.Controls.Add(FileLoader.instance);
                 FileLoader.instance.Dock = DockStyle.Fill;
                 FileLoader.instance.BringToFront();
             }
-            
 
+            SwitchButtonColor((Button)sender);
+        }
 
+        private void SwitchButtonColor(Button button)
+        {
+            buttonMenu1.BackColor = System.Drawing.Color.Green;
+            buttonMenu2.BackColor = System.Drawing.Color.Green;
+            buttonMenu3.BackColor = System.Drawing.Color.Green;
+
+            Random rand = new Random();
+            switch (button.Name)
+            {
+                case "buttonMenu1":
+                    buttonMenu1.BackColor = System.Drawing.Color.FromArgb(rand.Next(0,256), rand.Next(0, 256), rand.Next(0, 256));
+                    break;
+                case "buttonMenu2":
+                    buttonMenu2.BackColor = System.Drawing.Color.FromArgb(rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256));
+                    break;
+                case "buttonMenu3":
+                    buttonMenu3.BackColor = System.Drawing.Color.FromArgb(rand.Next(0, 256), rand.Next(0, 256), rand.Next(0, 256));
+                    break;
+
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            if (!panelOne.Controls.Contains(UserControl1.instance))
+            if (!panelWorkArea.Controls.Contains(UserControl1.instance))
             {
-                panelOne.Controls.RemoveAt(0);
-                panelOne.Controls.Add(UserControl1.instance);
+                if (panelWorkArea.Controls.Count != 0)
+                    panelWorkArea.Controls.RemoveAt(0);
+                panelWorkArea.Controls.Add(UserControl1.instance);
                 UserControl1.instance.Dock = DockStyle.Fill;
                 UserControl1.instance.BringToFront();
             }
+            SwitchButtonColor((Button)sender);
         }
 
         private void Button4_Click(object sender, EventArgs e)
         {
+            SwitchButtonColor((Button)sender);
             XmlManager xml = new XmlManager();
 
             xml.LoadSchedule();
@@ -132,5 +146,5 @@ namespace PlayListGenerator
             SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
         }
     }
-  
+
 }

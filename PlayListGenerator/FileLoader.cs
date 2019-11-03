@@ -3,6 +3,7 @@ using System.ComponentModel;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
 using Schedule;
+using System.IO;
 
 namespace PlayListGenerator
 {
@@ -26,6 +27,11 @@ namespace PlayListGenerator
             Form1.form1Instance.backgroundWorker1.RunWorkerAsync();
             Form1.form1Instance.backgroundWorker1.RunWorkerCompleted += (sender, _events) => { label2.Text = Form1.fileManager.str; };
 
+
+            AllowDrop = true;
+            this.DragDrop += new DragEventHandler(Form_DragDrop);
+            this.DragEnter += new DragEventHandler(Form_DragEnter);
+
         }
 
         string path = @"C:\Users\User\Source\Repos\Daliys\PlayListGenerator\PlayListGenerator\Футурис 03.11-04.11.xlsx";
@@ -37,6 +43,16 @@ namespace PlayListGenerator
             Form1.form1Instance.backgroundWorker1.ProgressChanged += ((sender1, _event) => { progressBar1.Value = _event.ProgressPercentage; });
             Form1.form1Instance.backgroundWorker1.RunWorkerAsync();
             Form1.form1Instance.backgroundWorker1.RunWorkerCompleted += (sn, _e) => { label1.Text = _e.Result.ToString(); };
+        }
+
+        void Form_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+        }
+        void Form_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            foreach (string file in files) Console.WriteLine(file);
         }
 
 
@@ -71,20 +87,23 @@ namespace PlayListGenerator
                 ts += "\n";
             }
 
-
             Form1.timeSchedule = new TimeSchedule(res);
-            // ts = "";
-            // foreach (var item in timeSchedule.workTimeMorning)
-            // {
-            //    ts += item.ToString() + "\n";
-            // }
-
             e.Result = ts;
             return e;
 
-            // label1.Text = ts;
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "excel file *.xlsx|*.xlsx";
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                string filename = openFileDialog1.FileName;
+                label1.Text = filename;
+            }
+
+        }
     }
 
 

@@ -32,10 +32,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.panelOne = new System.Windows.Forms.Panel();
+            this.buttonMenu3 = new System.Windows.Forms.Button();
+            this.buttonMenu2 = new System.Windows.Forms.Button();
+            this.buttonMenu1 = new System.Windows.Forms.Button();
+            this.panelWorkArea = new System.Windows.Forms.Panel();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button6 = new System.Windows.Forms.Button();
@@ -50,9 +50,9 @@
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(81)))), ((int)(((byte)(81)))), ((int)(((byte)(81)))));
             this.panelMenu.Controls.Add(this.label3);
             this.panelMenu.Controls.Add(this.panel2);
-            this.panelMenu.Controls.Add(this.button4);
-            this.panelMenu.Controls.Add(this.button3);
-            this.panelMenu.Controls.Add(this.button1);
+            this.panelMenu.Controls.Add(this.buttonMenu3);
+            this.panelMenu.Controls.Add(this.buttonMenu2);
+            this.panelMenu.Controls.Add(this.buttonMenu1);
             this.panelMenu.Location = new System.Drawing.Point(0, 0);
             this.panelMenu.Margin = new System.Windows.Forms.Padding(0);
             this.panelMenu.Name = "panelMenu";
@@ -92,58 +92,67 @@
             this.label4.TabIndex = 0;
             this.label4.Text = " Play List\r\nGenerator\r\n";
             // 
-            // button4
+            // buttonMenu3
             // 
-            this.button4.BackColor = System.Drawing.Color.Purple;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Location = new System.Drawing.Point(0, 191);
-            this.button4.Margin = new System.Windows.Forms.Padding(0);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(135, 32);
-            this.button4.TabIndex = 0;
-            this.button4.Text = "Create";
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.Button4_Click);
+            this.buttonMenu3.BackColor = System.Drawing.Color.Green;
+            this.buttonMenu3.FlatAppearance.BorderSize = 0;
+            this.buttonMenu3.FlatAppearance.CheckedBackColor = System.Drawing.Color.Teal;
+            this.buttonMenu3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.buttonMenu3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Teal;
+            this.buttonMenu3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMenu3.Location = new System.Drawing.Point(0, 191);
+            this.buttonMenu3.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonMenu3.Name = "buttonMenu3";
+            this.buttonMenu3.Size = new System.Drawing.Size(135, 32);
+            this.buttonMenu3.TabIndex = 0;
+            this.buttonMenu3.Text = "Create";
+            this.buttonMenu3.UseVisualStyleBackColor = false;
+            this.buttonMenu3.Click += new System.EventHandler(this.Button4_Click);
             // 
-            // button3
+            // buttonMenu2
             // 
-            this.button3.BackColor = System.Drawing.Color.Purple;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(0, 159);
-            this.button3.Margin = new System.Windows.Forms.Padding(0);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(135, 32);
-            this.button3.TabIndex = 0;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.buttonMenu2.BackColor = System.Drawing.Color.Green;
+            this.buttonMenu2.FlatAppearance.BorderSize = 0;
+            this.buttonMenu2.FlatAppearance.CheckedBackColor = System.Drawing.Color.Teal;
+            this.buttonMenu2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.buttonMenu2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Teal;
+            this.buttonMenu2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMenu2.Location = new System.Drawing.Point(0, 159);
+            this.buttonMenu2.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonMenu2.Name = "buttonMenu2";
+            this.buttonMenu2.Size = new System.Drawing.Size(135, 32);
+            this.buttonMenu2.TabIndex = 0;
+            this.buttonMenu2.Text = "button3";
+            this.buttonMenu2.UseVisualStyleBackColor = false;
+            this.buttonMenu2.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button1
+            // buttonMenu1
             // 
-            this.button1.BackColor = System.Drawing.Color.Purple;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(0, 127);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(135, 32);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.buttonMenu1.BackColor = System.Drawing.Color.Green;
+            this.buttonMenu1.FlatAppearance.BorderSize = 0;
+            this.buttonMenu1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Teal;
+            this.buttonMenu1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.buttonMenu1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Teal;
+            this.buttonMenu1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonMenu1.Location = new System.Drawing.Point(0, 127);
+            this.buttonMenu1.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonMenu1.Name = "buttonMenu1";
+            this.buttonMenu1.Size = new System.Drawing.Size(135, 32);
+            this.buttonMenu1.TabIndex = 0;
+            this.buttonMenu1.Text = "button1";
+            this.buttonMenu1.UseVisualStyleBackColor = false;
+            this.buttonMenu1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // panelOne
+            // panelWorkArea
             // 
-            this.panelOne.AutoScroll = true;
-            this.panelOne.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.panelOne.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelOne.Location = new System.Drawing.Point(135, 45);
-            this.panelOne.Margin = new System.Windows.Forms.Padding(0);
-            this.panelOne.Name = "panelOne";
-            this.panelOne.Size = new System.Drawing.Size(765, 605);
-            this.panelOne.TabIndex = 0;
+            this.panelWorkArea.AutoScroll = true;
+            this.panelWorkArea.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.panelWorkArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelWorkArea.Location = new System.Drawing.Point(135, 45);
+            this.panelWorkArea.Margin = new System.Windows.Forms.Padding(0);
+            this.panelWorkArea.Name = "panelWorkArea";
+            this.panelWorkArea.Size = new System.Drawing.Size(765, 605);
+            this.panelWorkArea.TabIndex = 0;
             // 
             // panel1
             // 
@@ -195,7 +204,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(900, 650);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.panelOne);
+            this.Controls.Add(this.panelWorkArea);
             this.Controls.Add(this.panelMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -216,10 +225,10 @@
         #endregion
 
         private System.Windows.Forms.Panel panelMenu;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Panel panelOne;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button buttonMenu1;
+        private System.Windows.Forms.Panel panelWorkArea;
+        private System.Windows.Forms.Button buttonMenu2;
+        private System.Windows.Forms.Button buttonMenu3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
