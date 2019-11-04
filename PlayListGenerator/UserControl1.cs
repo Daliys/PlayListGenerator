@@ -31,12 +31,15 @@ namespace PlayListGenerator
         void InitializeImage()
         {
             //Form1.fileManager.
-            PictureBox picture1 = new PictureBox();
-            picture1.Image = Form1.fileManager.listVideoFiles[4].image;
-            picture1.Parent = flowLayoutPanel1;
-            picture1.Width = 50;
-            picture1.Height = 50;
-            picture1.SizeMode = PictureBoxSizeMode.StretchImage;
+            foreach (var item in Form1.fileManager.listVideoFiles)
+            {
+                VideoForm picture1 = new VideoForm();
+                picture1.SetImage(item.image);
+                picture1.SetText(item.name);
+                picture1.Parent = flowLayoutPanel1;
+               
+            }
+
 
         }
     }

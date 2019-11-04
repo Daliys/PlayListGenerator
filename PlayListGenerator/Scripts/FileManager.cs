@@ -8,8 +8,9 @@ namespace FolderManager
 
     public class FileManager
     {
-        public const string pathFolder = @"C:\Users\User\Desktop\TestMF\New Project 1_EN508_158W670H\RGB";
-        public string str = "";
+        //public const string pathFolder = @"C:\Users\User\Desktop\TestMF\New Project 1_EN508_158W670H\RGB";            // ПК   
+        public const string pathFolder = @"D:\VS_PROJ\PlayListGenerator\RGB";                                           // Ноут
+        public string str = ""; 
         public List<VideoFileInfo> listVideoFiles;
         public void Syncronize()
         {

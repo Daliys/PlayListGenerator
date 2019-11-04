@@ -88,9 +88,9 @@ namespace PlayListGenerator
 
         private void SwitchButtonColor(Button button)
         {
-            buttonMenu1.BackColor = System.Drawing.Color.Green;
-            buttonMenu2.BackColor = System.Drawing.Color.Green;
-            buttonMenu3.BackColor = System.Drawing.Color.Green;
+            buttonMenu1.BackColor = System.Drawing.Color.FromArgb(94,94,94);
+            buttonMenu2.BackColor = System.Drawing.Color.FromArgb(94, 94, 94);
+            buttonMenu3.BackColor = System.Drawing.Color.FromArgb(94, 94, 94);
 
             Random rand = new Random();
             switch (button.Name)
@@ -144,6 +144,11 @@ namespace PlayListGenerator
         {
             ReleaseCapture();
             SendMessage(this.Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+        }
+
+        private void Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 

@@ -43,15 +43,34 @@ namespace PlayListGenerator
             Form1.form1Instance.backgroundWorker1.ProgressChanged += ((sender1, _event) => { progressBar1.Value = _event.ProgressPercentage; });
             Form1.form1Instance.backgroundWorker1.RunWorkerAsync();
             Form1.form1Instance.backgroundWorker1.RunWorkerCompleted += (sn, _e) => { label1.Text = _e.Result.ToString(); };
+           
         }
 
         void Form_DragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+            if (!e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.None;
+            String[] files = (String[])e.Data.GetData(DataFormats.FileDrop);
+            if (files.Length > 1) e.Effect = DragDropEffects.None;
+            else{
+                //if(files[0])
+                if (Path.GetExtension(files[0]) == ".xlsx") e.Effect = DragDropEffects.Copy;
+                else e.Effect = DragDropEffects.None;
+            }
+            
         }
         void Form_DragDrop(object sender, DragEventArgs e)
         {
+            
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            if (files.Length == 1)
+            {
+                if (Path.GetExtension(files[0]) == ".xlsx")
+                {
+                    label1.Text = files[0];
+                    path = files[0];
+                }
+            }
+            
             foreach (string file in files) Console.WriteLine(file);
         }
 
@@ -101,7 +120,13 @@ namespace PlayListGenerator
             {
                 string filename = openFileDialog1.FileName;
                 label1.Text = filename;
+                path = filename;
             }
+
+        }
+
+        private void Label4_Click(object sender, EventArgs e)
+        {
 
         }
     }

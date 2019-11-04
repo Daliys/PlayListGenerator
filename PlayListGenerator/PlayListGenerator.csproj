@@ -88,6 +88,12 @@
     <Compile Include="UserControl1.Designer.cs">
       <DependentUpon>UserControl1.cs</DependentUpon>
     </Compile>
+    <Compile Include="VideoForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="VideoForm.Designer.cs">
+      <DependentUpon>VideoForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FileLoader.resx">
       <DependentUpon>FileLoader.cs</DependentUpon>
     </EmbeddedResource>
@@ -105,6 +111,9 @@
     </Compile>
     <EmbeddedResource Include="UserControl1.resx">
       <DependentUpon>UserControl1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VideoForm.resx">
+      <DependentUpon>VideoForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Futuris.xlsx" />
     <None Include="Properties\Settings.settings">
