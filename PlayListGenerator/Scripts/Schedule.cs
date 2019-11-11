@@ -156,18 +156,18 @@ namespace Schedule
             listPrefabs.Add(new structVideos(18, "Lebiajiy_158_376"));
             listPrefabs.Add(new structVideos(19, "evro_part158_375"));
             listPrefabs.Add(new structVideos(20, "aeg_158(1)_375"));
+            listPrefabs.Add(new structVideos(21, "energy_158_375"));
             listPrefabs.Add(new structVideos(23, "Mazeraty_158_375"));
+            listPrefabs.Add(new structVideos(25, "nobel_158_375"));
+            listPrefabs.Add(new structVideos(26, "mod_futuris_375"));
+            listPrefabs.Add(new structVideos(27, "Comp 2_375"));
+            listPrefabs.Add(new structVideos(28, "milavitsa_158_375"));
+            listPrefabs.Add(new structVideos(29, "LAYS FUTURIS_158_375"));
 
 
 
 
-         
-           
- 
-            
-     
-            //listPrefabs.Add(new structVideos(3, "Karat_158_376"));
-        ///S
+
  
 
         }
@@ -175,7 +175,7 @@ namespace Schedule
         public string GetNameByID(int id)
         {
             if (listPrefabs.Find((x) => x.id == id).videoName != null) return (listPrefabs.Find((x) => x.id == id)).videoName;
-            return "Minsk_626";
+            return "XYI_SOSI_________________________________________";
             
         }
     }
